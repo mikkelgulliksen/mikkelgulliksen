@@ -21,7 +21,7 @@ export interface Project {
   /** Year */
   year: string;
   /** Category label shown below thumbnail */
-  category: "MUSIC VIDEO" | "COMMERCIAL" | "FILM" | "LIVE" | "OTHER" | "CONCERT MOVIE" | "PERFORMANCE VIDEO";
+  category: "MUSIC VIDEO" | "COMMERCIAL" | "FILM" | "LIVE" | "OTHER";
 }
 
 export interface SiteConfig {
@@ -30,6 +30,14 @@ export interface SiteConfig {
   projects: Project[];
   /** YouTube ID for the featured reel at the top */
   featuredYoutubeId?: string;
+  /** Optional dedicated showreel ID used by ReelSection */
+  showreelYoutubeId?: string;
+  /** Optional profile image used by About section */
+  profileImageUrl?: string;
+  /** Small heading above about text */
+  aboutHeading?: string;
+  /** About text paragraphs */
+  aboutText: string[];
   contact: {
     email: string;
     phone?: string;
@@ -53,6 +61,14 @@ const siteConfig: SiteConfig = {
 
   // ── Featured reel (YouTube ID for the hero section) ──
   featuredYoutubeId: "SM-BT9cijI4",
+  showreelYoutubeId: "SM-BT9cijI4",
+
+  // ── About section ───────────────────────────────────
+  aboutHeading: "About",
+  aboutText: [
+    "Producer focused on music videos, commercials, and film projects.",
+    "This portfolio highlights selected work across international productions.",
+  ],
 
   // ── Projects / Videos ─────────────────────────
   projects: [
@@ -134,78 +150,102 @@ const siteConfig: SiteConfig = {
       year: "2022",
       category: "MUSIC VIDEO",
     },
-
-    // Marcus & Martinus (edited titles)
     {
       youtubeId: "lwObaOnEu4A",
-      title: "Marcus & Martinus - Light It Up ft. Samantha J.",
+      title: "Alan Walker – Unity",
       role: "Producer",
-      year: "2020",
+      year: "2018",
       category: "MUSIC VIDEO",
     },
     {
       youtubeId: "yIOn18Gi8No",
-      title: "Marcus & Martinus - Bae",
+      title: "Alan Walker – Diamond Heart",
       role: "Producer",
-      year: "2019",
+      year: "2018",
       category: "MUSIC VIDEO",
     },
-
-    // Isac Elliot / Fanny Andersen
     {
-      youtubeId: "oogdONy5mYU",
-      title: "Isac Elliot - Eyes Shut",
+      youtubeId: "Du3UUYh2Svk",
+      title: "Alan Walker – The Spectre",
+      role: "Producer",
+      year: "2017",
+      category: "MUSIC VIDEO",
+    },
+    {
+      youtubeId: "_j5KR28qtsI",
+      title: "Alan Walker – Sing Me To Sleep",
       role: "Producer",
       year: "2016",
+      category: "MUSIC VIDEO",
+    },
+    {
+      youtubeId: "oogdONy5mYU",
+      title: "Alan Walker – All Falls Down",
+      role: "Producer",
+      year: "2017",
       category: "MUSIC VIDEO",
     },
     {
       youtubeId: "DWMUc5fvPeM",
-      title: "Isac Elliot - Mouth to Mouth",
+      title: "Alan Walker – Darkside",
       role: "Producer",
-      year: "2016",
+      year: "2018",
       category: "MUSIC VIDEO",
     },
     {
       youtubeId: "Dmp6VfzODXY",
-      title: "Fanny Andersen - Kids",
+      title: "Alan Walker – On My Way",
       role: "Producer",
-      year: "2018",
+      year: "2019",
+      category: "MUSIC VIDEO",
+    },
+    {
+      youtubeId: "NHni0iFA4TE",
+      title: "Alan Walker – Faded (Restrung)",
+      role: "Producer",
+      year: "2016",
       category: "MUSIC VIDEO",
     },
 
     // ── COMMERCIALS ──
     {
       youtubeId: "DbPtlJ_0tiQ",
-      title: "Power - It's Electrifying",
+      title: "Commercial — DbPtlJ_0tiQ",
       role: "Producer",
       year: "2024",
       category: "COMMERCIAL",
     },
     {
       youtubeId: "aada4pWmLF8",
-      title: "Opel - Vi heier på dere!",
+      title: "Commercial — aada4pWmLF8",
+      role: "Producer",
+      year: "2024",
+      category: "COMMERCIAL",
+    },
+    {
+      youtubeId: "TThhhjBAGOc",
+      title: "Commercial — TThhhjBAGOc",
       role: "Producer",
       year: "2024",
       category: "COMMERCIAL",
     },
     {
       mp4Url: "https://workinprogress.no/dynamic/upload/bilder/DLNB-Film_1.mp4",
-      title: "AVINOR - Don't Leave Norway Behind",
+      title: "AVINOR – Don't Leave Norway Behind",
       role: "Producer",
       year: "2024",
       category: "COMMERCIAL",
     },
     {
       vimeoId: "916660362",
-      title: "DNB - Oppstart (Kavar Singh)",
+      title: "DNB – Oppstart (Kavar Singh)",
       role: "Producer",
       year: "2024",
       category: "COMMERCIAL",
     },
     {
       vimeoId: "933729875",
-      title: "Å Energi - En lysere fremtid",
+      title: "Å Energi – En lysere fremtid",
       role: "Producer",
       year: "2024",
       category: "COMMERCIAL",
@@ -218,52 +258,22 @@ const siteConfig: SiteConfig = {
       category: "COMMERCIAL",
     },
 
-    // ── CONCERT MOVIE ──
+    // ── FILM ──
     {
-      youtubeId: "NHni0iFA4TE",
-      title: "Aviation Movie",
+      youtubeId: "Hi-kQn3ze4o",
+      title: "Aviation Movie (Full Movie Stream)",
       role: "Producer",
       year: "2024",
-      category: "CONCERT MOVIE",
+      category: "FILM",
     },
 
-    // ── LIVE / PERFORMANCE ──
+    // ── LIVE ──
     {
       youtubeId: "tzrHVd6q4dQ",
-      title: "Alan Walker - Believers (Live Stream)",
+      title: "Alan Walker – Believers (Live Stream)",
       role: "Producer",
       year: "2022",
       category: "LIVE",
-    },
-    {
-      youtubeId: "cYxAr_NZF9E",
-      title: "Alan Walker & Ruben – Heading Home (Live at Château de Fontainebleau)",
-      role: "Producer",
-      year: "2020",
-      category: "PERFORMANCE VIDEO",
-    },
-
-    // ── MOVED TO BOTTOM (as requested) ──
-    {
-      youtubeId: "Du3UUYh2Svk",
-      title: "Marcus & Martinus - Dance With You",
-      role: "Producer",
-      year: "2017",
-      category: "MUSIC VIDEO",
-    },
-    {
-      youtubeId: "_j5KR28qtsI",
-      title: "Marcus & Martinus - Girls ft. Madcon",
-      role: "Producer",
-      year: "2015",
-      category: "MUSIC VIDEO",
-    },
-    {
-      youtubeId: "TThhhjBAGOc",
-      title: "Helsedirektoratet - LEV",
-      role: "Producer",
-      year: "2024",
-      category: "COMMERCIAL",
     },
   ],
 
