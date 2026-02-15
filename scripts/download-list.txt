@@ -1,0 +1,30 @@
+# Download list for yt-dlp — contains YouTube, Vimeo and direct MP4 links
+https://www.youtube.com/watch?v=SM-BT9cijI4
+https://www.youtube.com/watch?v=6tkaatkbC2Y
+https://www.youtube.com/watch?v=axRAL0BXNvw
+https://www.youtube.com/watch?v=HhjHYkPQ8F0
+https://www.youtube.com/watch?v=mfSU_XwEnZA
+https://www.youtube.com/watch?v=NTVWwlWhBds
+https://www.youtube.com/watch?v=ZtBzWUZbTvA
+https://www.youtube.com/watch?v=rV_O6Q2KSN0
+https://www.youtube.com/watch?v=Oj18EikZMuU
+https://www.youtube.com/watch?v=eXzestWGq2U
+https://www.youtube.com/watch?v=stURztsCOZs
+https://www.youtube.com/watch?v=lwObaOnEu4A
+https://www.youtube.com/watch?v=yIOn18Gi8No
+https://www.youtube.com/watch?v=oogdONy5mYU
+https://www.youtube.com/watch?v=DWMUc5fvPeM
+https://www.youtube.com/watch?v=Dmp6VfzODXY
+https://www.youtube.com/watch?v=NHni0iFA4TE
+https://www.youtube.com/watch?v=DbPtlJ_0tiQ
+https://www.youtube.com/watch?v=aada4pWmLF8
+https://www.youtube.com/watch?v=TThhhjBAGOc
+https://workinprogress.no/dynamic/upload/bilder/DLNB-Film_1.mp4
+https://vimeo.com/916660362
+https://vimeo.com/933729875
+https://www.youtube.com/watch?v=s_9U6hkZhGk
+https://www.youtube.com/watch?v=tzrHVd6q4dQ
+https://www.youtube.com/watch?v=cYxAr_NZF9E
+https://www.youtube.com/watch?v=Du3UUYh2Svk
+https://www.youtube.com/watch?v=_j5KR28qtsI
+# End of list
