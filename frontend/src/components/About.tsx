@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import config from "../siteConfig";
 import FadeInSection from "./FadeInSection";
 
@@ -16,7 +17,7 @@ export default function About() {
                   className="w-full aspect-[3/4] object-cover rounded-xl"
                 />
               ) : (
-                <div className="w-full aspect-[3/4] rounded-xl bg-gradient-to-br from-[var(--color-brand-900)]/30 via-[var(--color-surface-card)] to-[var(--color-brand-800)]/20 border border-[var(--color-border)] flex items-center justify-center">
+                <div className="w-full aspect-[3/4] rounded-xl bg-[var(--color-surface-card)] border border-[var(--color-border)] flex items-center justify-center">
                   <div className="text-center">
                     <svg
                       className="w-16 h-16 text-[var(--color-text-muted)] mx-auto mb-4"
@@ -39,14 +40,14 @@ export default function About() {
                 </div>
               )}
               {/* Decorative accent */}
-              <div className="absolute -bottom-4 -right-4 w-full h-full border border-[var(--color-brand-600)]/20 rounded-xl -z-10" />
+              <div className="absolute -bottom-4 -right-4 w-full h-full border border-[var(--color-border)] rounded-xl -z-10" />
             </div>
           </FadeInSection>
 
           {/* Text */}
           <FadeInSection delay={200}>
             <div>
-              <p className="text-sm font-medium tracking-[0.2em] uppercase text-[var(--color-brand-400)] mb-3">
+              <p className="text-sm font-medium tracking-[0.2em] uppercase text-[var(--color-text-muted)] mb-3">
                 {config.aboutHeading}
               </p>
               <h2
@@ -99,14 +100,14 @@ export default function About() {
   );
 }
 
-function SocialLink({ href, label, children }: { href: string; label: string; children: React.ReactNode }) {
+function SocialLink({ href, label, children }: { href: string; label: string; children: ReactNode }) {
   return (
     <a
       href={href}
       target="_blank"
       rel="noopener noreferrer"
       aria-label={label}
-      className="w-10 h-10 rounded-full border border-[var(--color-border)] flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-brand-400)] hover:border-[var(--color-brand-400)]/50 transition-all duration-200"
+      className="w-10 h-10 rounded-full border border-[var(--color-border)] flex items-center justify-center text-[var(--color-text-muted)] hover:text-white hover:border-white/50 transition-all duration-200"
     >
       <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
         {children}

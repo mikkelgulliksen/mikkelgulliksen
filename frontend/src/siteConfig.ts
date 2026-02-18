@@ -64,10 +64,14 @@ const siteConfig: SiteConfig = {
   showreelYoutubeId: "SM-BT9cijI4",
 
   // ── About section ───────────────────────────────────
-  aboutHeading: "About",
+  aboutHeading: "Freelance Producer / Line Producer",
   aboutText: [
-    "Producer focused on music videos, commercials, and film projects.",
-    "This portfolio highlights selected work across international productions.",
+    "TVC, MVs, CF, Content",
+    "📍 Oslo, Norway",
+    "Work experience: 12 years of experience in the production industry, I have been involved in hundreds of projects spanning across TV commercials, music videos, stills, and various content creation. My expertise includes working on both domestic and international productions, offering service production capabilities. I have a diverse background working in various roles and departments, with a particular focus on complex VFX productions in recent years. This broad experience has equipped me with a deep understanding of the intricacies of the production world.",
+    "Produced campaigns for various clients: ASUS, RealMe, Dominos Pizza, Pepsi, MENY, UNICEF, POWER, OPEL, OBOS, TINE, HELP, Tom Wood, Bama etc.",
+    "And artists including: Alan Walker, Ava Max, Hans Zimmer, Isak Elliot, Marcus & Martinus, Imanbek, Salem Ilese, Madcon, Conor Maynard, VIZE, Georgia Ku, Samantha J.",
+    "Hit me up!",
   ],
 
   // ── Projects / Videos ─────────────────────────
