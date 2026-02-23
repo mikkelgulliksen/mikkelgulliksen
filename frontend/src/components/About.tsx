@@ -1,51 +1,56 @@
 import type { ReactNode } from "react";
+import { useState } from "react";
 import config from "../siteConfig";
 import FadeInSection from "./FadeInSection";
 
 export default function About() {
-  return (
-    <section id="om" className="py-24 md:py-32 px-6 bg-[var(--color-surface-elevated)]">
-      <div className="max-w-5xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-          {/* Image / Visual */}
-          <FadeInSection>
-            <div className="relative">
-              {config.profileImageUrl ? (
-                <img
-                  src={config.profileImageUrl}
-                  alt={config.name}
-                  className="w-full aspect-[3/4] object-cover rounded-xl"
-                />
-              ) : (
-                <div className="w-full aspect-[3/4] rounded-xl bg-[var(--color-surface-card)] border border-[var(--color-border)] flex items-center justify-center">
-                  <div className="text-center">
-                    <svg
-                      className="w-16 h-16 text-[var(--color-text-muted)] mx-auto mb-4"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={1}
-                        d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
-                      />
-                    </svg>
-                    <p className="text-sm text-[var(--color-text-muted)]">
-                      Legg til profilbilde i<br />
-                      <code className="text-xs bg-[var(--color-surface)] px-2 py-0.5 rounded">siteConfig.ts</code>
-                    </p>
-                  </div>
-                </div>
-              )}
-              {/* Decorative accent */}
-              <div className="absolute -bottom-4 -right-4 w-full h-full border border-[var(--color-border)] rounded-xl -z-10" />
-            </div>
-          </FadeInSection>
+  const [name, setName] = useState("");
+  const [fromEmail, setFromEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [error, setError] = useState<string | null>(null);
 
-          {/* Text */}
-          <FadeInSection delay={200}>
+  function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setError(null);
+
+    const trimmedEmail = fromEmail.trim();
+    const trimmedMessage = message.trim();
+
+    if (!trimmedEmail || !trimmedMessage) {
+      setError("Please fill in email and message.");
+      return;
+    }
+
+    const subject = name.trim()
+      ? `Contact from ${name.trim()}`
+      : "Contact from mikkelgulliksen.no";
+
+    const body = [
+      name.trim() ? `Name: ${name.trim()}` : null,
+      `Email: ${trimmedEmail}`,
+      "",
+      trimmedMessage,
+    ]
+      .filter(Boolean)
+      .join("\n");
+
+    const mailto = `mailto:${config.contact.email}?subject=${encodeURIComponent(
+      subject,
+    )}&body=${encodeURIComponent(body)}`;
+
+    window.location.href = mailto;
+  }
+
+  return (
+    <section
+      id="om"
+      className="py-24 md:py-32 px-6 md:px-10 bg-[var(--color-surface-elevated)] border-t border-[var(--color-border)]"
+    >
+      <div className="max-w-6xl mx-auto">
+        {/* Two-column: Bio left, Contact right */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
+          {/* ── Left: About / Bio ── */}
+          <FadeInSection>
             <div>
               <p className="text-sm font-medium tracking-[0.2em] uppercase text-[var(--color-text-muted)] mb-3">
                 {config.aboutHeading}
@@ -56,11 +61,11 @@ export default function About() {
               >
                 {config.name}
               </h2>
-              <div className="space-y-5">
+              <div className="space-y-4">
                 {config.aboutText.map((paragraph, i) => (
                   <p
                     key={i}
-                    className="text-[var(--color-text-secondary)] leading-relaxed"
+                    className="text-[var(--color-text-secondary)] leading-relaxed text-sm md:text-base"
                   >
                     {paragraph}
                   </p>
@@ -94,13 +99,94 @@ export default function About() {
               )}
             </div>
           </FadeInSection>
+
+          {/* ── Right: Contact form ── */}
+          <FadeInSection delay={200}>
+            <div id="contact">
+              <h3 className="text-2xl md:text-3xl font-bold tracking-tight text-white mb-2">
+                Get in touch.
+              </h3>
+              <div className="w-12 h-px bg-[var(--color-text-muted)] mt-4 mb-8" />
+              <p className="text-[var(--color-text-secondary)] font-light leading-relaxed mb-8 text-sm">
+                Send me a message and I'll get back to you.
+              </p>
+
+              <form onSubmit={onSubmit} className="space-y-4">
+                <div>
+                  <label className="block text-xs tracking-[0.15em] uppercase text-[var(--color-text-muted)] mb-2">
+                    Name (optional)
+                  </label>
+                  <input
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    className="w-full rounded-sm border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-2 text-sm text-white placeholder:text-[var(--color-text-muted)] focus:outline-none focus:ring-1 focus:ring-white/30"
+                    placeholder="Your name"
+                    autoComplete="name"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs tracking-[0.15em] uppercase text-[var(--color-text-muted)] mb-2">
+                    Email
+                  </label>
+                  <input
+                    value={fromEmail}
+                    onChange={(e) => setFromEmail(e.target.value)}
+                    className="w-full rounded-sm border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-2 text-sm text-white placeholder:text-[var(--color-text-muted)] focus:outline-none focus:ring-1 focus:ring-white/30"
+                    placeholder="you@example.com"
+                    autoComplete="email"
+                    inputMode="email"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs tracking-[0.15em] uppercase text-[var(--color-text-muted)] mb-2">
+                    Message
+                  </label>
+                  <textarea
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    className="w-full min-h-32 rounded-sm border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-2 text-sm text-white placeholder:text-[var(--color-text-muted)] focus:outline-none focus:ring-1 focus:ring-white/30"
+                    placeholder="What are you looking to make?"
+                    required
+                  />
+                </div>
+
+                {error && (
+                  <p className="text-sm text-[var(--color-text-secondary)]">
+                    {error}
+                  </p>
+                )}
+
+                <button
+                  type="submit"
+                  className="inline-block text-sm tracking-[0.15em] uppercase text-white border border-[var(--color-border)] px-5 py-2.5 hover:border-white transition-colors duration-300"
+                >
+                  Send
+                </button>
+
+                <p className="text-xs text-[var(--color-text-muted)]">
+                  Opens your email app — sends to {config.contact.email}.
+                </p>
+              </form>
+            </div>
+          </FadeInSection>
         </div>
       </div>
     </section>
   );
 }
 
-function SocialLink({ href, label, children }: { href: string; label: string; children: ReactNode }) {
+function SocialLink({
+  href,
+  label,
+  children,
+}: {
+  href: string;
+  label: string;
+  children: ReactNode;
+}) {
   return (
     <a
       href={href}
