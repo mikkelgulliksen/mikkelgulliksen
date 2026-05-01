@@ -21,28 +21,29 @@ export default function Navbar() {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled
-          ? "bg-[var(--color-surface)]/95 backdrop-blur-md border-b border-[var(--color-border)]"
+          ? "border-b border-white/10 bg-[var(--color-surface)]/88 shadow-[0_16px_50px_rgba(0,0,0,0.24)] backdrop-blur-xl"
           : "bg-transparent"
       }`}
     >
-      <div className="w-full px-6 md:px-10 h-20 flex items-center justify-between">
-        {/* Logo */}
-        <a href="#" className="flex items-center gap-3 group">
-          <span className="text-xl font-bold tracking-tight text-white">
+      <div className="flex h-20 w-full items-center justify-between px-5 sm:px-8 md:px-10">
+        <a href="#" className="group flex items-center gap-3">
+          <span className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-white/10 text-xs font-bold tracking-[0.14em] text-white backdrop-blur-md transition-colors duration-300 group-hover:border-white/35">
+            MG
+          </span>
+          <span className="text-base font-bold tracking-tight text-white sm:text-lg">
             {config.name}
           </span>
-          <span className="hidden sm:inline text-white font-extralight text-sm tracking-widest uppercase">
-            — {config.title}
+          <span className="hidden text-xs font-medium uppercase tracking-[0.2em] text-[var(--color-text-muted)] lg:inline">
+            {config.title}
           </span>
         </a>
 
-        {/* Desktop nav */}
-        <div className="hidden md:flex items-center gap-10">
+        <div className="hidden items-center gap-2 rounded-full border border-white/10 bg-black/20 p-1 backdrop-blur-md md:flex">
           {navLinks.map((link) => (
             <a
               key={link.href}
               href={link.href}
-              className="text-xs font-medium tracking-[0.15em] uppercase text-[var(--color-text-secondary)] hover:text-white transition-colors duration-300"
+              className="rounded-full px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--color-text-secondary)] transition-all duration-300 hover:bg-white/10 hover:text-white"
             >
               {link.label}
             </a>
@@ -51,7 +52,7 @@ export default function Navbar() {
 
         {/* Mobile menu button */}
         <button
-          className="md:hidden text-[var(--color-text-secondary)] hover:text-white transition-colors"
+          className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-black/20 text-[var(--color-text-secondary)] backdrop-blur-md transition-colors hover:text-white md:hidden"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Menu"
         >
@@ -67,14 +68,14 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {menuOpen && (
-        <div className="md:hidden bg-[var(--color-surface)] border-b border-[var(--color-border)]">
-          <div className="px-8 py-6 flex flex-col gap-5">
+        <div className="border-b border-white/10 bg-[var(--color-surface)]/95 backdrop-blur-xl md:hidden">
+          <div className="flex flex-col gap-2 px-5 py-5 sm:px-8">
             {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
                 onClick={() => setMenuOpen(false)}
-                className="text-sm tracking-[0.15em] uppercase text-[var(--color-text-secondary)] hover:text-white transition-colors"
+                className="rounded-full px-4 py-3 text-sm font-semibold uppercase tracking-[0.15em] text-[var(--color-text-secondary)] transition-colors hover:bg-white/10 hover:text-white"
               >
                 {link.label}
               </a>

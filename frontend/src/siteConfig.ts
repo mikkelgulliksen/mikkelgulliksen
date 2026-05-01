@@ -30,6 +30,10 @@ export interface SiteConfig {
   projects: Project[];
   /** YouTube ID for the featured reel at the top */
   featuredYoutubeId?: string;
+  /** Optional local MP4 used as the visual hero reel */
+  featuredMp4Url?: string;
+  /** Optional poster image used before the hero reel loads */
+  featuredPosterUrl?: string;
   /** Optional dedicated showreel ID used by ReelSection */
   showreelYoutubeId?: string;
   /** Optional profile image used by About section */
@@ -61,6 +65,8 @@ const siteConfig: SiteConfig = {
 
   // ── Featured reel (YouTube ID for the hero section) ──
   featuredYoutubeId: "SM-BT9cijI4",
+  featuredMp4Url: "/media/showreel.mp4",
+  featuredPosterUrl: "/media/posters/hero.jpg",
   showreelYoutubeId: "SM-BT9cijI4",
 
   // ── About section ───────────────────────────────────
@@ -79,6 +85,7 @@ const siteConfig: SiteConfig = {
     // ── MUSIC VIDEOS ──
     {
       youtubeId: "SM-BT9cijI4",
+      posterUrl: "/media/posters/sweet-dreams.jpg",
       title: "Alan Walker x Imanbek – Sweet Dreams",
       role: "Producer",
       year: "2024",
@@ -86,6 +93,7 @@ const siteConfig: SiteConfig = {
     },
     {
       youtubeId: "6tkaatkbC2Y",
+      posterUrl: "/media/posters/fake-a-smile.jpg",
       title: "Alan Walker x Salem Ilese – Fake A Smile",
       role: "Producer",
       year: "2021",
@@ -93,6 +101,7 @@ const siteConfig: SiteConfig = {
     },
     {
       youtubeId: "axRAL0BXNvw",
+      posterUrl: "/media/posters/time-remix.jpg",
       title: "Hans Zimmer & Alan Walker – Time (Official Remix)",
       role: "Producer",
       year: "2023",
@@ -100,6 +109,7 @@ const siteConfig: SiteConfig = {
     },
     {
       youtubeId: "HhjHYkPQ8F0",
+      posterUrl: "/media/posters/alone-pt-ii.jpg",
       title: "Alan Walker & Ava Max – Alone, Pt. II",
       role: "Producer",
       year: "2019",
@@ -107,6 +117,7 @@ const siteConfig: SiteConfig = {
     },
     {
       youtubeId: "mfSU_XwEnZA",
+      posterUrl: "/media/posters/heading-home.jpg",
       title: "Alan Walker & Ruben – Heading Home",
       role: "Producer",
       year: "2020",
@@ -114,6 +125,7 @@ const siteConfig: SiteConfig = {
     },
     {
       youtubeId: "NTVWwlWhBds",
+      posterUrl: "/media/posters/dead-girl.jpg",
       title: "Au/Ra x Alan Walker – Dead Girl! (Lyric Video)",
       role: "Producer",
       year: "2023",
@@ -121,6 +133,7 @@ const siteConfig: SiteConfig = {
     },
     {
       youtubeId: "ZtBzWUZbTvA",
+      posterUrl: "/media/posters/believers.jpg",
       title: "Alan Walker x Conor Maynard – Believers",
       role: "Producer",
       year: "2022",
@@ -128,6 +141,7 @@ const siteConfig: SiteConfig = {
     },
     {
       youtubeId: "rV_O6Q2KSN0",
+      posterUrl: "/media/posters/georgia-ku.jpg",
       title: "Alan Walker & Georgia Ku – Don't You Hold Me Down",
       role: "Producer",
       year: "2023",
@@ -135,6 +149,7 @@ const siteConfig: SiteConfig = {
     },
     {
       youtubeId: "Oj18EikZMuU",
+      posterUrl: "/media/posters/end-of-time.jpg",
       title: "K391 – End Of Time",
       role: "Producer",
       year: "2022",
@@ -142,6 +157,7 @@ const siteConfig: SiteConfig = {
     },
     {
       youtubeId: "eXzestWGq2U",
+      posterUrl: "/media/posters/space-melody.jpg",
       title: "VIZE x Alan Walker – Space Melody (Edward Artemyev)",
       role: "Producer",
       year: "2021",
@@ -149,6 +165,7 @@ const siteConfig: SiteConfig = {
     },
     {
       youtubeId: "stURztsCOZs",
+      posterUrl: "/media/posters/paradise.jpg",
       title: "Boy in Space x Alan Walker x K391 – Paradise",
       role: "Producer",
       year: "2022",
@@ -256,6 +273,7 @@ const siteConfig: SiteConfig = {
     },
     {
       youtubeId: "s_9U6hkZhGk",
+      posterUrl: "/media/posters/asus-rog.jpg",
       title: "ASUS ROG Zephyrus",
       role: "Producer",
       year: "2023",
@@ -265,6 +283,7 @@ const siteConfig: SiteConfig = {
     // ── FILM ──
     {
       youtubeId: "Hi-kQn3ze4o",
+      posterUrl: "/media/posters/aviation.jpg",
       title: "Aviation Movie (Full Movie Stream)",
       role: "Producer",
       year: "2024",
@@ -274,6 +293,7 @@ const siteConfig: SiteConfig = {
     // ── LIVE ──
     {
       youtubeId: "tzrHVd6q4dQ",
+      posterUrl: "/media/posters/live-believers.jpg",
       title: "Alan Walker – Believers (Live Stream)",
       role: "Producer",
       year: "2022",

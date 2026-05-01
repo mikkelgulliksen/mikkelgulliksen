@@ -1,0 +1,3 @@
+# Copy this file to .envrc locally, then keep .envrc untracked.
+# Example local-only variable used by the frontend build:
+# export VITE_GA_MEASUREMENT_ID=

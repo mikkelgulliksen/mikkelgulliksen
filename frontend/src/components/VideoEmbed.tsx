@@ -12,15 +12,14 @@ interface Props {
 function PlayOverlay() {
   return (
     <>
-      {/* Dark overlay */}
-      <div className="absolute inset-0 bg-black/20 group-hover:bg-black/5 transition-all duration-500" />
-      {/* Play button — minimal white outline */}
+      <div className="absolute inset-0 bg-black/25 transition-all duration-500 group-hover:bg-black/10" />
       <div className="absolute inset-0 flex items-center justify-center">
-        <div className="w-14 h-14 md:w-16 md:h-16 border border-white/50 rounded-full flex items-center justify-center group-hover:border-white group-hover:scale-105 transition-all duration-300 backdrop-blur-[2px]">
+        <div className="flex h-14 w-14 items-center justify-center rounded-full border border-white/45 bg-white/15 text-white shadow-[0_10px_40px_rgba(0,0,0,0.32)] backdrop-blur-md transition-all duration-300 group-hover:scale-105 group-hover:border-white group-hover:bg-white/25 md:h-[72px] md:w-[72px]">
           <svg
-            className="w-5 h-5 md:w-6 md:h-6 text-white ml-0.5"
+            className="ml-0.5 h-5 w-5 md:h-6 md:w-6"
             fill="currentColor"
             viewBox="0 0 24 24"
+            aria-hidden="true"
           >
             <path d="M8 5v14l11-7z" />
           </svg>
@@ -46,7 +45,7 @@ export default function VideoEmbed({
 
   // ── YouTube ──
   if (youtubeId) {
-    const thumbnailUrl = `https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg`;
+    const thumbnailUrl = posterUrl || `https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg`;
 
     if (!isLoaded) {
       return (
@@ -63,6 +62,11 @@ export default function VideoEmbed({
             alt={title}
             className="absolute inset-0 w-full h-full object-cover"
             loading="lazy"
+            onError={(event) => {
+              if (!posterUrl) {
+                event.currentTarget.src = `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`;
+              }
+            }}
           />
           <PlayOverlay />
         </div>
@@ -86,20 +90,29 @@ export default function VideoEmbed({
     if (!isLoaded) {
       return (
         <div
-          className="video-container cursor-pointer group bg-neutral-900"
+          className="video-container cursor-pointer group bg-[var(--color-surface-card)]"
           onClick={activate}
           role="button"
           aria-label={`Play: ${title}`}
           tabIndex={0}
           onKeyDown={keyHandler}
         >
-          {/* Vimeo doesn't expose thumbnails easily; show a dark placeholder */}
-          <div className="absolute inset-0 bg-neutral-800" />
+          {posterUrl ? (
+            <img
+              src={posterUrl}
+              alt={title}
+              className="absolute inset-0 h-full w-full object-cover"
+              loading="lazy"
+            />
+          ) : (
+            <div className="absolute inset-0 bg-[var(--color-surface-card)]" />
+          )}
           <PlayOverlay />
-          {/* Title hint */}
-          <div className="absolute bottom-4 left-4 text-white/60 text-xs tracking-wide uppercase pointer-events-none">
-            {title}
-          </div>
+          {!posterUrl && (
+            <div className="pointer-events-none absolute bottom-4 left-4 max-w-[80%] text-xs uppercase tracking-wide text-white/60">
+              {title}
+            </div>
+          )}
         </div>
       );
     }
@@ -121,7 +134,7 @@ export default function VideoEmbed({
     if (!isLoaded) {
       return (
         <div
-          className="video-container cursor-pointer group bg-neutral-900"
+          className="video-container cursor-pointer group bg-[var(--color-surface-card)]"
           onClick={() => {
             setIsLoaded(true);
             // Auto-play after next render
@@ -145,11 +158,11 @@ export default function VideoEmbed({
               loading="lazy"
             />
           ) : (
-            <div className="absolute inset-0 bg-neutral-800" />
+            <div className="absolute inset-0 bg-[var(--color-surface-card)]" />
           )}
           <PlayOverlay />
           {!posterUrl && (
-            <div className="absolute bottom-4 left-4 text-white/60 text-xs tracking-wide uppercase pointer-events-none">
+            <div className="pointer-events-none absolute bottom-4 left-4 max-w-[80%] text-xs uppercase tracking-wide text-white/60">
               {title}
             </div>
           )}

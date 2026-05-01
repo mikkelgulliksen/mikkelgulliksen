@@ -1,23 +1,22 @@
 @import "tailwindcss";
 
-/* ── Custom theme — B&W Minimal ──────────────────── */
+/* ── Custom theme — Cinematic minimal ────────────── */
 @theme {
   --font-sans: "Inter", system-ui, sans-serif;
   --font-display: "Inter", system-ui, sans-serif;
 
-  --color-surface: #0a0a0a;
-  --color-surface-elevated: #111111;
-  --color-surface-card: #161616;
-  --color-text-primary: #ffffff;
-  --color-text-secondary: #a0a0a0;
-  --color-text-muted: #555555;
-  --color-border: #222222;
+  --color-surface: #080807;
+  --color-surface-elevated: #10100e;
+  --color-surface-card: #171612;
+  --color-text-primary: #f7f4ee;
+  --color-text-secondary: #b8b5ad;
+  --color-text-muted: #7c766c;
+  --color-border: #2b2924;
+  --color-accent: #d7c89e;
 }
 
 /* ── Global styles ───────────────────────────────── */
 * {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
 }
 
@@ -27,11 +26,38 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 
+[id] {
+  scroll-margin-top: 6rem;
+}
+
 body {
+  margin: 0;
   background-color: var(--color-surface);
+  background-image: linear-gradient(180deg, #0b0b0a 0%, #080807 48%, #0e0d0b 100%);
   color: var(--color-text-primary);
   font-family: var(--font-sans);
   line-height: 1.6;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--color-accent) 32%, transparent);
+  color: var(--color-text-primary);
+}
+
+a,
+button,
+input,
+textarea {
+  outline-color: color-mix(in srgb, var(--color-accent) 68%, white);
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+[role="button"]:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--color-accent) 78%, white);
+  outline-offset: 4px;
 }
 
 /* ── Scrollbar styling ───────────────────────────── */
@@ -56,6 +82,7 @@ body {
   padding-bottom: 56.25%; /* 16:9 */
   height: 0;
   overflow: hidden;
+  background: var(--color-surface-card);
 }
 
 .video-container iframe {
@@ -96,7 +123,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  opacity: 0.03;
+  opacity: 0.055;
   pointer-events: none;
   z-index: 100;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");

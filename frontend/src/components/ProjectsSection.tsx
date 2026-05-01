@@ -22,30 +22,38 @@ export default function ProjectsSection() {
   ];
 
   return (
-    <section id="works" className="pt-4 pb-24 md:pb-32 px-6 md:px-10">
-      <div className="w-full">
-        {/* Section header */}
+    <section
+      id="works"
+      className="relative border-b border-[var(--color-border)] bg-[var(--color-surface)] px-5 py-16 sm:px-8 md:px-10 md:py-24"
+    >
+      <div className="mx-auto w-full max-w-[1680px]">
         <FadeInSection>
-          <div className="mb-14">
-            <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-white">
-              Works.
-            </h2>
-            <div className="w-12 h-px bg-[var(--color-text-muted)] mt-4" />
+          <div className="mb-10 grid gap-6 md:grid-cols-[minmax(0,1fr)_360px] md:items-end">
+            <div>
+              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.28em] text-[var(--color-accent)]">
+                Selected work
+              </p>
+              <h2 className="text-4xl font-bold tracking-tight text-white md:text-6xl">
+                Works.
+              </h2>
+            </div>
+            <p className="max-w-sm text-sm leading-6 text-[var(--color-text-secondary)] md:justify-self-end md:text-right">
+              Campaigns, music videos, film and live work across domestic and international productions.
+            </p>
           </div>
         </FadeInSection>
 
-        {/* Filter row */}
         {usedCategories.length > 2 && (
           <FadeInSection delay={100}>
-            <div className="flex flex-wrap gap-6 mt-6 mb-14">
+            <div className="mb-8 flex flex-wrap gap-2 border-y border-white/10 py-4 md:mb-12">
               {usedCategories.map((cat) => (
                 <button
                   key={cat}
                   onClick={() => setActiveFilter(cat)}
-                  className={`text-xs tracking-[0.15em] uppercase transition-all duration-300 pb-1 border-b ${
+                  className={`min-h-10 rounded-full border px-4 text-[11px] font-semibold uppercase tracking-[0.16em] transition-all duration-300 ${
                     activeFilter === cat
-                      ? "text-white border-white"
-                      : "text-[var(--color-text-muted)] border-transparent hover:text-[var(--color-text-secondary)]"
+                      ? "border-white bg-white text-black"
+                      : "border-white/10 bg-white/[0.03] text-[var(--color-text-muted)] hover:border-white/30 hover:text-white"
                   }`}
                 >
                   {cat === ALL ? "All" : cat}
@@ -55,37 +63,20 @@ export default function ProjectsSection() {
           </FadeInSection>
         )}
 
-        {/* Project grid — 3 columns on desktop */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-x-5 gap-y-12">
-          {filteredProjects.map((project, i) => (
-            <FadeInSection key={projectKey(project)} delay={i * 60}>
-              <div className="group">
-                {/* Thumbnail / Video */}
-                <div className="overflow-hidden rounded-sm mb-4">
-                  <VideoEmbed
-                    youtubeId={project.youtubeId}
-                    vimeoId={project.vimeoId}
-                    mp4Url={project.mp4Url}
-                    posterUrl={project.posterUrl}
-                    title={project.title}
-                  />
-                </div>
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-12">
+          {filteredProjects.map((project, i) => {
+            const isFeatured = activeFilter === ALL && i < 2;
 
-                {/* Info — clean white text */}
-                <div>
-                  <p className="text-[10px] font-medium tracking-[0.2em] uppercase text-[var(--color-text-muted)] mb-1.5">
-                    {project.category}
-                  </p>
-                  <h3 className="text-sm font-semibold text-white leading-snug mb-1">
-                    {project.title}
-                  </h3>
-                  <p className="text-xs font-light text-[var(--color-text-muted)]">
-                    {project.role} · {project.year}
-                  </p>
-                </div>
-              </div>
-            </FadeInSection>
-          ))}
+            return (
+              <FadeInSection
+                key={projectKey(project)}
+                className={isFeatured ? "xl:col-span-6" : "xl:col-span-4"}
+                delay={Math.min(i * 45, 360)}
+              >
+                <ProjectCard project={project} featured={isFeatured} />
+              </FadeInSection>
+            );
+          })}
         </div>
 
         {filteredProjects.length === 0 && (
@@ -95,5 +86,47 @@ export default function ProjectsSection() {
         )}
       </div>
     </section>
+  );
+}
+
+function ProjectCard({
+  project,
+  featured,
+}: {
+  project: Project;
+  featured: boolean;
+}) {
+  return (
+    <article className="group h-full">
+      <div className="h-full overflow-hidden rounded-[6px] border border-white/10 bg-[var(--color-surface-card)] transition-all duration-500 group-hover:border-white/25 group-hover:bg-[#1b1915]">
+        <div className="overflow-hidden bg-black">
+          <VideoEmbed
+            youtubeId={project.youtubeId}
+            vimeoId={project.vimeoId}
+            mp4Url={project.mp4Url}
+            posterUrl={project.posterUrl}
+            title={project.title}
+          />
+        </div>
+
+        <div className={featured ? "p-5 md:p-6" : "p-4 md:p-5"}>
+          <div className="mb-3 flex flex-wrap items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--color-text-muted)]">
+            <span className="text-[var(--color-accent)]">{project.category}</span>
+            <span className="h-px w-5 bg-white/15" />
+            <span>{project.year}</span>
+          </div>
+          <h3
+            className={`font-semibold leading-tight text-white transition-colors duration-300 group-hover:text-[var(--color-text-primary)] ${
+              featured ? "text-xl md:text-2xl" : "text-base md:text-lg"
+            }`}
+          >
+            {project.title}
+          </h3>
+          <p className="mt-2 text-sm text-[var(--color-text-muted)]">
+            {project.role}
+          </p>
+        </div>
+      </div>
+    </article>
   );
 }

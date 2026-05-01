@@ -11,6 +11,25 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <script>
+      const measurementId = "%VITE_GA_MEASUREMENT_ID%";
+      const hasMeasurementId =
+        measurementId && !measurementId.includes("VITE_GA_MEASUREMENT_ID");
+
+      if (hasMeasurementId) {
+        const script = document.createElement("script");
+        script.async = true;
+        script.src = `https://www.googletagmanager.com/gtag/js?id=${measurementId}`;
+        document.head.appendChild(script);
+
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+          window.dataLayer.push(arguments);
+        }
+        gtag("js", new Date());
+        gtag("config", measurementId);
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
