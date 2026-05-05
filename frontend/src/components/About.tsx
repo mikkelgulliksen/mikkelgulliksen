@@ -3,7 +3,7 @@ import config from "../siteConfig";
 import FadeInSection from "./FadeInSection";
 
 const highlights = [
-  "12 years in production",
+  "15 years in production",
   "TVC, music videos, stills and content",
   "International service productions and VFX-heavy work",
 ];

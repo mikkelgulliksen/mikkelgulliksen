@@ -68,8 +68,7 @@ export default function Hero() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 gap-px overflow-hidden border border-white/10 bg-white/10 min-[520px]:grid-cols-3 lg:grid-cols-1">
-            <HeroFact label="Experience" value="12 years" />
+          <div className="grid grid-cols-1 gap-px overflow-hidden border border-white/10 bg-white/10 min-[520px]:grid-cols-2 lg:grid-cols-1">
             <HeroFact label="Base" value="Oslo" />
             <HeroFact label="Work" value="TVC / MVs / Content" />
           </div>
