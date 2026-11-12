@@ -31,7 +31,7 @@ export default function Hero() {
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-end">
           <div className="max-w-5xl">
             <p className="mb-5 text-xs font-medium uppercase tracking-[0.32em] text-[var(--color-accent)]">
-              {config.title} / Line Producer
+              {config.title}
             </p>
             <h1 className="max-w-4xl text-4xl font-bold leading-[0.92] tracking-tight text-[var(--color-text-primary)] min-[420px]:text-5xl sm:text-6xl md:text-7xl lg:text-8xl">
               {config.name}

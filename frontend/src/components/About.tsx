@@ -126,10 +126,24 @@ export default function About() {
               <p className="mt-3 text-sm leading-6 text-[var(--color-text-secondary)]">
                 Send a note about the production, timing, location and what needs to happen next.
               </p>
+              <div className="mt-4 flex flex-col gap-2 text-sm text-[var(--color-text-secondary)]">
+                <a className="w-fit hover:text-white" href={`mailto:${config.contact.email}`}>
+                  {config.contact.email}
+                </a>
+                {config.contact.phone && (
+                  <a
+                    className="w-fit hover:text-white"
+                    href={`tel:${config.contact.phone.replace(/\s/g, "")}`}
+                  >
+                    {config.contact.phone}
+                  </a>
+                )}
+              </div>
 
               <form onSubmit={onSubmit} className="mt-7 space-y-4">
-                <FieldLabel label="Name" optional />
+                <FieldLabel label="Name" htmlFor="contact-name" optional />
                 <input
+                  id="contact-name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   className="w-full rounded-[4px] border border-white/10 bg-black/20 px-4 py-3 text-sm text-white placeholder:text-[var(--color-text-muted)] focus:border-white/40 focus:outline-none focus:ring-0"
@@ -137,10 +151,12 @@ export default function About() {
                   autoComplete="name"
                 />
 
-                <FieldLabel label="Email" />
+                <FieldLabel label="Email" htmlFor="contact-email" />
                 <input
+                  id="contact-email"
                   value={fromEmail}
                   onChange={(e) => setFromEmail(e.target.value)}
+                  type="email"
                   className="w-full rounded-[4px] border border-white/10 bg-black/20 px-4 py-3 text-sm text-white placeholder:text-[var(--color-text-muted)] focus:border-white/40 focus:outline-none focus:ring-0"
                   placeholder="you@example.com"
                   autoComplete="email"
@@ -148,8 +164,9 @@ export default function About() {
                   required
                 />
 
-                <FieldLabel label="Message" />
+                <FieldLabel label="Message" htmlFor="contact-message" />
                 <textarea
+                  id="contact-message"
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   className="min-h-36 w-full resize-y rounded-[4px] border border-white/10 bg-black/20 px-4 py-3 text-sm text-white placeholder:text-[var(--color-text-muted)] focus:border-white/40 focus:outline-none focus:ring-0"
@@ -178,9 +195,20 @@ export default function About() {
   );
 }
 
-function FieldLabel({ label, optional = false }: { label: string; optional?: boolean }) {
+function FieldLabel({
+  label,
+  htmlFor,
+  optional = false,
+}: {
+  label: string;
+  htmlFor: string;
+  optional?: boolean;
+}) {
   return (
-    <label className="block text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--color-text-muted)]">
+    <label
+      htmlFor={htmlFor}
+      className="block text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--color-text-muted)]"
+    >
       {label}
       {optional && <span className="ml-2 font-normal tracking-[0.1em]">Optional</span>}
     </label>
