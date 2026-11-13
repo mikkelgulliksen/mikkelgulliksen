@@ -2,6 +2,11 @@ import { type FormEvent, type ReactNode, useState } from "react";
 import config from "../siteConfig";
 import FadeInSection from "./FadeInSection";
 
+type FormFeedback = {
+  type: "error" | "success";
+  message: string;
+};
+
 const highlights = [
   "15 years in production",
   "TVC, music videos, stills and content",
@@ -12,38 +17,71 @@ export default function About() {
   const [name, setName] = useState("");
   const [fromEmail, setFromEmail] = useState("");
   const [message, setMessage] = useState("");
-  const [error, setError] = useState<string | null>(null);
+  const [website, setWebsite] = useState("");
+  const [feedback, setFeedback] = useState<FormFeedback | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  function onSubmit(e: FormEvent<HTMLFormElement>) {
+  async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setError(null);
+    setFeedback(null);
+    setIsSubmitting(true);
 
-    const trimmedEmail = fromEmail.trim();
-    const trimmedMessage = message.trim();
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email: fromEmail, message, website }),
+      });
 
-    if (!trimmedEmail || !trimmedMessage) {
-      setError("Please fill in email and message.");
-      return;
+      let responseMessage: string | null = null;
+      try {
+        const result: unknown = await response.json();
+        if (
+          typeof result === "object" &&
+          result !== null &&
+          "message" in result &&
+          typeof result.message === "string"
+        ) {
+          responseMessage = result.message;
+        }
+      } catch {
+        responseMessage = null;
+      }
+
+      if (!response.ok) {
+        setFeedback({
+          type: "error",
+          message:
+            responseMessage ??
+            `We could not send your message. Please email ${config.contact.email} directly.`,
+        });
+        return;
+      }
+
+      if (responseMessage === null) {
+        setFeedback({
+          type: "error",
+          message: `We could not confirm delivery. Please email ${config.contact.email} directly.`,
+        });
+        return;
+      }
+
+      setFeedback({
+        type: "success",
+        message: responseMessage,
+      });
+      setName("");
+      setFromEmail("");
+      setMessage("");
+      setWebsite("");
+    } catch {
+      setFeedback({
+        type: "error",
+        message: `We could not send your message. Please try again or email ${config.contact.email} directly.`,
+      });
+    } finally {
+      setIsSubmitting(false);
     }
-
-    const subject = name.trim()
-      ? `Contact from ${name.trim()}`
-      : "Contact from mikkelgulliksen.no";
-
-    const body = [
-      name.trim() ? `Name: ${name.trim()}` : null,
-      `Email: ${trimmedEmail}`,
-      "",
-      trimmedMessage,
-    ]
-      .filter(Boolean)
-      .join("\n");
-
-    const mailto = `mailto:${config.contact.email}?subject=${encodeURIComponent(
-      subject,
-    )}&body=${encodeURIComponent(body)}`;
-
-    window.location.href = mailto;
   }
 
   return (
@@ -140,20 +178,41 @@ export default function About() {
                 )}
               </div>
 
-              <form onSubmit={onSubmit} className="mt-7 space-y-4">
+              <form
+                onSubmit={onSubmit}
+                className="mt-7 space-y-4"
+                aria-busy={isSubmitting}
+              >
+                <div
+                  className="absolute -left-[9999px] h-px w-px overflow-hidden"
+                  aria-hidden="true"
+                >
+                  <label htmlFor="contact-website">Leave this field empty</label>
+                  <input
+                    id="contact-website"
+                    name="website"
+                    value={website}
+                    onChange={(e) => setWebsite(e.target.value)}
+                    tabIndex={-1}
+                    autoComplete="off"
+                  />
+                </div>
                 <FieldLabel label="Name" htmlFor="contact-name" optional />
                 <input
                   id="contact-name"
+                  name="name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   className="w-full rounded-[4px] border border-white/10 bg-black/20 px-4 py-3 text-sm text-white placeholder:text-[var(--color-text-muted)] focus:border-white/40 focus:outline-none focus:ring-0"
                   placeholder="Your name"
                   autoComplete="name"
+                  maxLength={100}
                 />
 
                 <FieldLabel label="Email" htmlFor="contact-email" />
                 <input
                   id="contact-email"
+                  name="email"
                   value={fromEmail}
                   onChange={(e) => setFromEmail(e.target.value)}
                   type="email"
@@ -161,30 +220,46 @@ export default function About() {
                   placeholder="you@example.com"
                   autoComplete="email"
                   inputMode="email"
+                  maxLength={254}
                   required
                 />
 
                 <FieldLabel label="Message" htmlFor="contact-message" />
                 <textarea
                   id="contact-message"
+                  name="message"
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   className="min-h-36 w-full resize-y rounded-[4px] border border-white/10 bg-black/20 px-4 py-3 text-sm text-white placeholder:text-[var(--color-text-muted)] focus:border-white/40 focus:outline-none focus:ring-0"
                   placeholder="What are you looking to make?"
+                  maxLength={5000}
                   required
                 />
 
-                {error && <p className="text-sm text-[var(--color-accent)]">{error}</p>}
+                {feedback && (
+                  <p
+                    className={`text-sm ${
+                      feedback.type === "error"
+                        ? "text-[var(--color-accent)]"
+                        : "text-[var(--color-text-secondary)]"
+                    }`}
+                    role={feedback.type === "error" ? "alert" : "status"}
+                    aria-live="polite"
+                  >
+                    {feedback.message}
+                  </p>
+                )}
 
                 <button
                   type="submit"
-                  className="inline-flex h-12 w-full items-center justify-center rounded-full border border-white bg-white px-5 text-sm font-semibold uppercase tracking-[0.14em] text-black transition-colors duration-300 hover:bg-[var(--color-accent)]"
+                  disabled={isSubmitting}
+                  className="inline-flex h-12 w-full items-center justify-center rounded-full border border-white bg-white px-5 text-sm font-semibold uppercase tracking-[0.14em] text-black transition-colors duration-300 hover:bg-[var(--color-accent)] disabled:cursor-not-allowed disabled:opacity-70"
                 >
-                  Send
+                  {isSubmitting ? "Sending..." : "Send"}
                 </button>
 
                 <p className="text-xs leading-5 text-[var(--color-text-muted)]">
-                  Opens your email app and sends to {config.contact.email}.
+                  Your message will be sent to {config.contact.email}.
                 </p>
               </form>
             </div>
