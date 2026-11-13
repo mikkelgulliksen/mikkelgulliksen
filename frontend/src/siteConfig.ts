@@ -60,8 +60,8 @@ export function projectKey(p: Project): string {
 }
 
 const siteConfig: SiteConfig = {
-  name: "Mikkel Gulliksen",
-  title: "Film Producer",
+  name: "Mikkel S. Gulliksen",
+  title: "Producer",
 
   // ── Featured reel (YouTube ID for the hero section) ──
   featuredYoutubeId: "SM-BT9cijI4",
@@ -70,11 +70,11 @@ const siteConfig: SiteConfig = {
   showreelYoutubeId: "SM-BT9cijI4",
 
   // ── About section ───────────────────────────────────
-  aboutHeading: "Freelance Producer / Line Producer",
+  aboutHeading: "Producer",
   aboutText: [
     "TVC, MVs, CF, Content",
     "📍 Oslo, Norway",
-    "Work experience: 15 years of experience in the production industry, I have been involved in hundreds of projects spanning across TV commercials, music videos, stills, and various content creation. My expertise includes working on both domestic and international productions, offering service production capabilities. I have a diverse background working in various roles and departments, with a particular focus on complex VFX productions in recent years. This broad experience has equipped me with a deep understanding of the intricacies of the production world.",
+    "Oslo-based producer with extensive experience across commercials, music videos and international productions. His work includes complex production setups involving demanding locations, logistics and VFX.",
     "Produced campaigns for various clients: ASUS, RealMe, Dominos Pizza, Pepsi, MENY, UNICEF, POWER, OPEL, OBOS, TINE, HELP, Tom Wood, Bama etc.",
     "And artists including: Alan Walker, Ava Max, Hans Zimmer, Isak Elliot, Marcus & Martinus, Imanbek, Salem Ilese, Madcon, Conor Maynard, VIZE, Georgia Ku, Samantha J.",
     "Hit me up!",
@@ -88,7 +88,7 @@ const siteConfig: SiteConfig = {
       posterUrl: "/media/posters/sweet-dreams.jpg",
       title: "Alan Walker x Imanbek – Sweet Dreams",
       role: "Producer",
-      year: "2024",
+      year: "2021",
       category: "MUSIC VIDEO",
     },
     {
@@ -104,7 +104,7 @@ const siteConfig: SiteConfig = {
       posterUrl: "/media/posters/time-remix.jpg",
       title: "Hans Zimmer & Alan Walker – Time (Official Remix)",
       role: "Producer",
-      year: "2023",
+      year: "2020",
       category: "MUSIC VIDEO",
     },
     {
@@ -303,8 +303,8 @@ const siteConfig: SiteConfig = {
 
   // ── Contact ────────────────────────────────────
   contact: {
-    email: "mikkel@example.com",        // ← Your email
-    // phone: "+47 123 45 678",
+    email: "mikkel@mikkelgulliksen.no",
+    phone: "+47 958 97 092",
   },
 
   // ── Socials (add URLs) ─────────────────────────

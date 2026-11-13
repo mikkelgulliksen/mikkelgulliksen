@@ -40,8 +40,22 @@ export default function VideoEmbed({
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const activate = () => setIsLoaded(true);
-  const keyHandler = (e: React.KeyboardEvent) =>
-    e.key === "Enter" && activate();
+  const keyHandler = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      activate();
+    }
+  };
+  const activateMp4 = () => {
+    setIsLoaded(true);
+    setTimeout(() => videoRef.current?.play(), 50);
+  };
+  const mp4KeyHandler = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      activateMp4();
+    }
+  };
 
   // ── YouTube ──
   if (youtubeId) {
@@ -135,20 +149,11 @@ export default function VideoEmbed({
       return (
         <div
           className="video-container cursor-pointer group bg-[var(--color-surface-card)]"
-          onClick={() => {
-            setIsLoaded(true);
-            // Auto-play after next render
-            setTimeout(() => videoRef.current?.play(), 50);
-          }}
+          onClick={activateMp4}
           role="button"
           aria-label={`Play: ${title}`}
           tabIndex={0}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              setIsLoaded(true);
-              setTimeout(() => videoRef.current?.play(), 50);
-            }
-          }}
+          onKeyDown={mp4KeyHandler}
         >
           {posterUrl ? (
             <img
