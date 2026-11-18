@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Nota</title>
+    <link rel="icon" href="/favicon-dark.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,460;0,9..144,560;1,9..144,520&family=Outfit:wght@360;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        color-scheme: dark;
+        --cream: #f6f1e8;
+        --ink: #2a221b;
+        --paper: #f3eadc;
+        --muted: #a9bcc4;
+        --danger: #f0c2b6;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      [hidden] {
+        display: none !important;
+      }
+
+      html,
+      body {
+        margin: 0;
+        min-height: 100%;
+      }
+
+      body {
+        min-height: 100vh;
+        font-family: Outfit, system-ui, sans-serif;
+        color: var(--cream);
+        background:
+          radial-gradient(ellipse 90% 55% at 50% -8%, rgba(140, 190, 206, 0.28), transparent 58%),
+          radial-gradient(ellipse 45% 32% at 88% 110%, rgba(196, 132, 74, 0.16), transparent 52%),
+          linear-gradient(180deg, #102532 0%, #08161e 46%, #070f14 100%);
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 5;
+        opacity: 0.05;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      }
+
+      .sr {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+
+      .gate,
+      .scene {
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        padding: 2.5rem 1.25rem 3rem;
+      }
+
+      .gate-inner {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: min(100%, 28rem);
+        text-align: center;
+      }
+
+      h1 {
+        margin: 0 0 1.6rem;
+        max-width: 12ch;
+        font-family: Fraunces, Georgia, serif;
+        font-weight: 460;
+        font-size: clamp(2.15rem, 7vw, 3.55rem);
+        line-height: 1.08;
+        letter-spacing: -0.035em;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.75rem;
+        width: 100%;
+      }
+
+      input {
+        width: min(100%, 16.5rem);
+        border: 1px solid rgba(246, 241, 232, 0.2);
+        border-radius: 999px;
+        background: rgba(6, 14, 18, 0.55);
+        color: var(--cream);
+        padding: 0.95rem 1.15rem;
+        font: 500 1.15rem/1 Outfit, system-ui, sans-serif;
+        letter-spacing: 0.14em;
+        text-align: center;
+      }
+
+      input::placeholder {
+        color: rgba(246, 241, 232, 0.34);
+        letter-spacing: 0.16em;
+      }
+
+      input:focus-visible,
+      button:focus-visible {
+        outline: 2px solid rgba(246, 241, 232, 0.85);
+        outline-offset: 3px;
+      }
+
+      button {
+        border: 0;
+        border-radius: 999px;
+        background: var(--cream);
+        color: #17242c;
+        padding: 0.82rem 1.45rem;
+        font: 500 0.98rem/1 Outfit, system-ui, sans-serif;
+        letter-spacing: 0.01em;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background: #fffaf3;
+      }
+
+      .error {
+        min-height: 1.4rem;
+        margin: 0.35rem 0 0;
+        color: var(--danger);
+        font-size: 0.95rem;
+      }
+
+      .moon {
+        position: fixed;
+        top: 1.4rem;
+        right: 1.3rem;
+        width: 2.35rem;
+        height: 2.35rem;
+        border-radius: 50%;
+        background: radial-gradient(circle at 34% 32%, #fff9ee, #ead9b8 58%, #c9b48d);
+        box-shadow: 0 0 42px rgba(234, 217, 184, 0.38);
+      }
+
+      .card {
+        position: relative;
+        z-index: 1;
+        width: min(100%, 26.5rem);
+        animation: rise 0.75s ease both;
+      }
+
+      .polaroid {
+        position: relative;
+        z-index: 2;
+        width: min(74%, 15.75rem);
+        margin: 0 auto -2.55rem;
+        padding: 0.55rem 0.55rem 1.65rem;
+        background: #f7f3ec;
+        box-shadow: 0 16px 36px rgba(0, 0, 0, 0.34);
+        transform: rotate(2.4deg);
+      }
+
+      .polaroid::before {
+        content: "";
+        position: absolute;
+        top: -0.72rem;
+        left: 50%;
+        width: 4.4rem;
+        height: 1.15rem;
+        transform: translateX(-50%) rotate(-3deg);
+        background: rgba(214, 186, 132, 0.62);
+      }
+
+      .polaroid img {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+
+      .paper {
+        padding: 3.55rem 1.45rem 1.7rem;
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.42), transparent 26%),
+          var(--paper);
+        color: var(--ink);
+        box-shadow:
+          0 26px 60px rgba(0, 0, 0, 0.4),
+          inset 0 1px 0 rgba(255, 255, 255, 0.55);
+        transform: rotate(-0.7deg);
+      }
+
+      .paper p {
+        margin: 0 0 1rem;
+        font-family: Fraunces, Georgia, serif;
+        font-size: clamp(1.12rem, 2.6vw, 1.28rem);
+        font-weight: 460;
+        line-height: 1.42;
+      }
+
+      .signoff {
+        margin-top: 0.35rem;
+        font-style: italic;
+        font-weight: 520;
+      }
+
+      .shake {
+        animation: shake 0.38s ease;
+      }
+
+      @keyframes shake {
+        0%,
+        100% {
+          transform: translateX(0);
+        }
+        20% {
+          transform: translateX(-7px);
+        }
+        40% {
+          transform: translateX(7px);
+        }
+        60% {
+          transform: translateX(-4px);
+        }
+        80% {
+          transform: translateX(4px);
+        }
+      }
+
+      @keyframes rise {
+        from {
+          opacity: 0;
+          transform: translateY(22px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .card,
+        .shake {
+          animation: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="moon" aria-hidden="true"></div>
+    <main id="gate" class="gate">
+      <div class="gate-inner">
+        <h1>¿Cuál es tu fecha de nacimiento?</h1>
+        <form id="form" autocomplete="off">
+          <label class="sr" for="fecha">Fecha</label>
+          <input
+            id="fecha"
+            name="fecha"
+            type="text"
+            placeholder="dd.mm.aaaa"
+            spellcheck="false"
+            autocapitalize="off"
+            autocomplete="off"
+            enterkeyhint="go"
+          />
+          <button type="submit">Entrar</button>
+          <p id="error" class="error" aria-live="polite"></p>
+        </form>
+      </div>
+    </main>
+
+    <section id="note" class="scene" hidden>
+      <article class="card">
+        <figure class="polaroid">
+          <img src="./mt.jpg" alt="Una foto tuya" width="1254" height="1254" />
+        </figure>
+        <div class="paper">
+          <p>
+            Estaba ordenando un poco por aquí y por allá y encontré un viejo
+            frasco de Xyrem con algo raro dentro.
+          </p>
+          <p>
+            Así que tienes un regalito: ¡está a menos de 40 cm de esta nota!
+          </p>
+          <p class="signoff">¡Que duermas bien! &lt;3</p>
+        </div>
+      </article>
+    </section>
+
+    <script>
+      const gate = document.querySelector("#gate");
+      const note = document.querySelector("#note");
+      const form = document.querySelector("#form");
+      const input = document.querySelector("#fecha");
+      const error = document.querySelector("#error");
+      const storageKey = "nota-abierta";
+
+      function isBirthday(value) {
+        const cleaned = value.trim().replace(/\s/g, "");
+        const dayFirst = cleaned.match(/^(\d{1,2})[./-](\d{1,2})[./-](\d{4})$/);
+        const yearFirst = cleaned.match(/^(\d{4})[./-](\d{1,2})[./-](\d{1,2})$/);
+        const parts = dayFirst
+          ? { day: dayFirst[1], month: dayFirst[2], year: dayFirst[3] }
+          : yearFirst
+            ? { day: yearFirst[3], month: yearFirst[2], year: yearFirst[1] }
+            : null;
+
+        if (parts) {
+          return Number(parts.day) === 28 && Number(parts.month) === 7 && parts.year === "1992";
+        }
+
+        const digits = cleaned.replace(/\D/g, "");
+        return digits === "28071992" || digits === "19920728";
+      }
+
+      function openNote() {
+        sessionStorage.setItem(storageKey, "1");
+        gate.hidden = true;
+        note.hidden = false;
+      }
+
+      if (sessionStorage.getItem(storageKey) === "1") {
+        openNote();
+      } else {
+        input.focus();
+      }
+
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        if (isBirthday(input.value)) {
+          openNote();
+          return;
+        }
+        error.textContent = "Esa no es.";
+        input.classList.remove("shake");
+        void input.offsetWidth;
+        input.classList.add("shake");
+        input.focus();
+        input.select();
+      });
+    </script>
+  </body>
+</html>
